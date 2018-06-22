@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
+import Dashboard from './Dashboard/';
 
 class GithubNotifier extends Component {
     render() {
-        return (
-            <h1>The party is about to begin</h1>
-        )
+        return <Dashboard/>
     }
 }
 
