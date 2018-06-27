@@ -3,6 +3,11 @@ import Navigation from './Navigation';
 import RepoList from './RepoList';
 
 class Dashboard extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <section>
@@ -12,16 +17,17 @@ class Dashboard extends Component {
                 <div className="col-md-12">
 
                     <div className="col-md-4">
-                        <Navigation/>
+                        <Navigation appData={this.props.appData}/>
                     </div>
 
                     <div className="col-md-8">
-                        <RepoList />
+                        <RepoList appData={this.props.appData}/>
                     </div>
                 </div>
             </section>
         )
     }
 }
+
 
 export default Dashboard;
