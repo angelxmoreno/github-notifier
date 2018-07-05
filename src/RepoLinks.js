@@ -1,9 +1,22 @@
 import React, {Component} from 'react';
 
+const RepoLink = ({isActive, onClick, label, metric}) => {
+    let class_name = (isActive) ? 'active list-group-item' : 'list-group-item';
+
+    return (
+        <a href="#" className={class_name} onClick={onClick}>
+            {label}
+            <span className="badge pull-right">
+                    {metric}
+                </span>
+        </a>
+    );
+};
+
 class RepoLinks extends Component {
     constructor(props) {
         super(props);
-        let repos = props.appData.repos.filter((repo,i)=> repo.notifications.length);
+        let repos = props.appData.repos.filter((repo, i) => repo.notifications.length);
         this.state = {
             active: repos[0].id,
             repos: repos
@@ -39,22 +52,6 @@ class RepoLinks extends Component {
                 {this.showRepoLinks()}
             </div>
         )
-    }
-}
-
-class RepoLink extends Component {
-    render() {
-        let class_name = (this.props.isActive) ? 'active list-group-item': 'list-group-item';
-
-        return (
-            <a href="#" className={class_name} onClick={this.props.onClick}>
-
-                {this.props.label}
-                <span className="badge pull-right">
-                    {this.props.metric}
-                </span>
-            </a>
-        );
     }
 }
 
