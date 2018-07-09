@@ -62,11 +62,11 @@ class DataMaker {
         return Repo;
     }
 
-    createNotification(Repo) {
+    createNotification() {
         let ago_numeral = _.random(0, 60 * 60 * 24 * 31);
         let time_ago = moment().subtract(ago_numeral, 'seconds');
 
-        const Notification = {
+        return {
             id: _.uniqueId('notification'),
             title: faker.lorem.sentence(),
             type: faker.hacker.adjective(),
@@ -74,8 +74,6 @@ class DataMaker {
             is_read: !!_.random(0, 1),
 
         };
-
-        return Notification;
     }
 }
 
