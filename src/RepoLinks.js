@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 
-const RepoLink = ({isActive, onClick, label, metric}) => {
-    let class_name = (isActive) ? 'active list-group-item' : 'list-group-item';
-
+const RepoLink = ({repoId, isActive, onClick, label, metric}) => {
+    const class_name = (isActive) ? 'active list-group-item' : 'list-group-item';
+    const handleClick = () => {onClick(repoId)};
+    
     return (
-        <a href="#" className={class_name} onClick={onClick}>
+        <a href="#" className={class_name} onClick={handleClick}>
             {label}
             <span className="badge pull-right">
-                    {metric}
-                </span>
+                {metric}
+            </span>
         </a>
     );
 };
@@ -19,37 +20,34 @@ class RepoLinks extends Component {
         let repos = props.appData.repos.filter((repo, i) => repo.notifications.length);
         this.state = {
             active: repos[0].id,
-            repos: repos
+            repos: props.appData.repos ? repos : []
         };
+
+        this.onSelect = this.onSelect.bind(this);
     }
 
-    handleClick(repo) {
-        return (e) => {
-            this.setState({
-                active: repo.id
-            });
-        }
-    }
-
-    showRepoLinks() {
-        return this.state.repos.map((repo, i) => {
-            let is_active = repo.id === this.state.active;
-            return (
-                <RepoLink
-                    key={'repoLink' + i}
-                    label={repo.url}
-                    metric={repo.notifications.length}
-                    isActive={is_active}
-                    onClick={this.handleClick(repo)}
-                />
-            );
+    onSelect(repoId) {
+        this.setState({
+            active: repoId
         });
     }
 
     render() {
         return (
             <div className="list-group">
-                {this.showRepoLinks()}
+                {this.state.repos.map((repo, i) => {
+                    const is_active = repo.id === this.state.active;
+                    return (
+                        <RepoLink
+                            key={'repoLink' + i}
+                            label={repo.url}
+                            repoId={repo.id}
+                            metric={repo.notifications.length}
+                            isActive={is_active}
+                            onClick={this.onSelect}
+                        />
+                    );
+                })}
             </div>
         )
     }
