@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 const RepoLink = ({repoId, isActive, onClick, label, metric}) => {
     const class_name = (isActive) ? 'active list-group-item' : 'list-group-item';
-    const handleClick = () => {onClick(repoId)};
+    const handleClick = (e) => { e.preventDefault(); onClick(repoId)};
     
     return (
         <a href="#" className={class_name} onClick={handleClick}>
